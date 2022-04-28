@@ -20,8 +20,11 @@ import java.time.ZoneId;
 @Component
 public class NotificationConsumer {
 
-    @Autowired
-    private NotificationService notificationService;
+    final NotificationService notificationService;
+
+    public NotificationConsumer(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
 
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue(value = "${ead.broker.queue.notificationCommandQueue.name}", durable = "true"),
